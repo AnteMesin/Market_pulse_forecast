@@ -1,0 +1,96 @@
+# config/settings.yaml
+ticker: AAPL
+start_date: 2019-01-01
+end_date: 2021-12-31
+
+features:
+  use_price: true
+  use_technicals: true
+  use_sentiment: true
+  use_calendar: true
+  
+feature_flags:
+  open_price: true
+  high_price: true
+  low_price: false
+  close_price: false  # not used as input; it's the target
+  volume: false
+  price_change: false
+  moving_avg_50: true
+  moving_avg_200: false
+  rsi_14: false
+  ema_12: true
+  ema_26: true
+  macd: true
+  macd_signal: true
+  bollinger_middle: true
+  bollinger_std: false
+  bollinger_upper: true
+  bollinger_lower: false
+  high_low: false
+  high_close: false
+  low_close: false
+  tr: false
+  atr: false
+  sentiment_score: false
+  news_count_last_24h: true
+  average_sentiment_last_24h: false
+  news_volatility_impact: false
+
+  # --- Engineered features (added after original dataset) ---
+  close_lag1: true
+  close_lag2: true
+  momentum: true
+  macd_diff: true
+  rolling_std_14: true
+  day_of_week: true
+  month_of_year: true
+
+model:
+  lstm_units: 128           # can be tuned    (256,)
+  lstm_layers: 2           # can be tuned     (3,)  
+  dropout: 0.05             # can be tuned
+  learning_rate: 0.0005     # can be tuned
+  batch_size: 32
+  epochs: 10                # use 50
+
+
+
+
+#####################################
+###   SPLIT Methods -choose 1 of 4  #
+#####################################
+
+splits:
+  chronological:
+    method: chronological
+    test_size: 0.2
+    window_size: 100
+    n_splits: 5
+
+  expanding:
+    method: expanding
+    window_size: 100
+    test_size: 50
+
+  rolling:
+    method: rolling
+    window_size: 1000
+    test_size: 100
+
+  kfold:
+    method: kfold
+    n_splits: 5
+
+
+           
+
+explainability:
+  use_shap: true
+  use_lime: false
+  use_attention: true
+
+tuning:
+  enabled: true
+  n_trials: 5
+  sequence_length: 30
