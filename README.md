@@ -1,4 +1,4 @@
-# Market_Pulse_Forecast
+# Market Pulse Forecast
 
 ## 📈 Overview
 
